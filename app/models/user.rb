@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  attr_accessor :name, :email
   mailkick_user
   require "pg_search"
   include SimpleDiscussion::ForumUser
@@ -13,6 +14,7 @@ class User < ApplicationRecord
   has_many :stars
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_mentored, class_name: "Group",  foreign_key: "mentor_id", dependent: :destroy
+  devise :saml_authenticatable, :trackable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
          :validatable, :omniauthable, omniauth_providers: %i[google_oauth2 facebook github]
 

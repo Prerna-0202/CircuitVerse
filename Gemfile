@@ -168,3 +168,7 @@ gem "rack-attack"
 gem "jsbundling-rails", "~> 1.0"
 
 gem "stimulus-rails", "~> 1.0"
+
+gem "devise_saml_authenticatable"
+
+gem "omniauth-saml"

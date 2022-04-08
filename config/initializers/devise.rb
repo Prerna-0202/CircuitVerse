@@ -287,4 +287,24 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
+
+  config.saml_create_user = true
+  config.saml_update_user = true
+  config.saml_default_user_key = :email
+  config.saml_session_index_key = :session_index
+  config.saml_use_subject = true
+  config.idp_settings_adapter = nil
+  config.saml_configure do |settings|
+    settings.assertion_consumer_service_url     = "#{$callback}/users/saml/auth"
+    settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+    settings.issuer                             = "#{$callback}/users/saml/metadata"
+    settings.authn_context                      = ""
+    settings.idp_slo_target_url                 = ""
+    settings.idp_sso_target_url                 = "https://dev-99649471.okta.com/app/dev-99649471_circuitverse_1/exk4lc5e0u3QJZFsZ5d7/sso/saml
+    "
+    settings.idp_cert_fingerprint               = '63:28:31:63:30:0F:9B:86:7A:55:65:43:16:4A:21:DE:3B:32:3B:00:68:DD:AB:B8:98:C5:EA:A1:A2:3F:79:79'
+    settings.idp_cert_fingerprint_algorithm     = 'http://www.w3.org/2000/09/xmldsig#sha256'
+    $callback = Rails.env.development? ? 'http://localhost:3000' : ENV['CALLBACK_ADDRESS']
+  end
 end
