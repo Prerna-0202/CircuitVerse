@@ -4,15 +4,15 @@
       <h6 class="users-shared-row"><%= t("users.shared.login_with") %></h6>
     </div>
     <div class="row center-row">
-      <a href="/users/auth/google_oauth2">
+      <%= form_tag('/users/auth/google_oauth2', method: 'post') do %>
         <%= image_tag "SVGs/google-plus.svg", alt: "Google Icon", :class => "users-social-links" %>
-      </a>
-      <a href="/users/auth/facebook">
+      <% end %>
+      <%= form_tag('/users/auth/facebook', method: 'post') do %>
         <%= image_tag "SVGs/facebook.svg",alt: "Facebook Icon", :class => "users-social-links" %>
-      </a>
-      <a href="/users/auth/github">
+      <% end %>
+      <%= form_tag('/users/auth/github', method: 'post') do %>
         <%= image_tag "SVGs/github.svg",alt: "Github Icon", :class => "users-social-links" %>
-      </a>
+      <% end %>
     </div>
   </div>
 </div>
