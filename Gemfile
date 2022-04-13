@@ -16,6 +16,7 @@ gem "omniauth-facebook"
 gem "omniauth-github"
 gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
+gem "omniauth-rails_csrf_protection"
 gem "kt-paperclip"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1.4"
