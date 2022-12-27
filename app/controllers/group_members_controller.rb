@@ -35,8 +35,9 @@ class GroupMembersController < ApplicationController
     @group = Group.find(group_member_params[:group_id])
     is_mentor = false
     is_mentor = group_member_params[:mentor] == "true" if group_member_params[:mentor]
-    group_member_emails = group_member_params[:emails].select {|email| Devise.email_regexp.match?(email) and email != nil}
-
+    if group_member_params[:emails] != nil
+      group_member_emails = group_member_params[:emails].select { |email| Devise.email_regexp.match?(email) }
+    end
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
     newly_added = group_member_emails - present_members
 
