@@ -11,13 +11,13 @@ describe Utils do
     @emails = @valid_emails.concat(@invalid_emails)
   end
 
-  # describe "#parse_mails" do
-  #   it "parses email string to array" do
-  #     expect(described_class.parse_mails(@emails.join(" "))).to eq(@valid_emails)
-  #     expect(described_class.parse_mails(@emails.join(","))).to eq(@valid_emails)
-  #     expect(described_class.parse_mails(@emails.join("\n"))).to eq(@valid_emails)
-  #   end
-  # end
+  describe "#parse_mails" do
+    it "parses email string to array" do
+      expect(described_class.parse_mails(@emails.join(" "))).to eq(@valid_emails)
+      expect(described_class.parse_mails(@emails.join(","))).to eq(@valid_emails)
+      expect(described_class.parse_mails(@emails.join("\n"))).to eq(@valid_emails)
+    end
+  end
 
   describe "#mail_notice" do
     it "produces notice string" do
