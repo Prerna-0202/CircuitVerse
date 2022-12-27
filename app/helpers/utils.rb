@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'active_record'
 module Utils
   # Filters out all the valid emails from the argument string
   # @param mails string of emails entered
