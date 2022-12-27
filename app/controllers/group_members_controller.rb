@@ -35,10 +35,10 @@ class GroupMembersController < ApplicationController
     @group = Group.find(group_member_params[:group_id])
     is_mentor = false
     is_mentor = group_member_params[:mentor] == "true" if group_member_params[:mentor]
-    group_member_emails = group_member_params[:emails].grep(Devise.email_regexp)
+    self.group_member_emails = group_member_params[:emails].grep(Devise.email_regexp)
 
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
-    newly_added = group_member_emails - present_members
+    newly_added = self.group_member_emails - present_members
 
     newly_added.each do |email|
       email = email.strip
@@ -55,12 +55,12 @@ class GroupMembersController < ApplicationController
       end
     end
 
-    notice = Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added)
+    notice = Utils.mail_notice(group_member_params[:emails], self.group_member_emails, newly_added)
 
     respond_to do |format|
       format.html do
         redirect_to group_path(@group),
-                    notice: Utils.mail_notice(group_member_params[:emails], group_member_emails,
+                    notice: Utils.mail_notice(group_member_params[:emails], self.group_member_emails,
                                               newly_added)
       end
     end
