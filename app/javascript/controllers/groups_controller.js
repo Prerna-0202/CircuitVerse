@@ -71,7 +71,7 @@ export default class extends Controller {
             tokenSeparators: [',', ' '],
         });
         $('.select2-selection input').attr('maxlength', '30');
-        $('.select2-search__field').attr('id', 'group_email_input');
+        $('.select2-selection input').attr('id', 'group_email_input');
         $('.add-members-button').attr('disabled', true);
         $('.select2-container').on('keyup click', () => {
             if ($('.select2-selection__rendered').children().length > 1) {
