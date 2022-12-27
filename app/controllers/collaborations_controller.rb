@@ -37,7 +37,7 @@ class CollaborationsController < ApplicationController
     
     notice = Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)
     
-    notice = "You can't invite yourself. #{notice}" if collaboration_params[:emails].include?(current_user.email) && (not collaboration_params[:emails].nil?)
+    notice = "You can't invite yourself. #{notice}" if  (not collaboration_params[:emails].nil?) && collaboration_params[:emails].include?(current_user.email)
 
     respond_to do |format|
       format.html { redirect_to user_project_path(@project.author_id, @project.id), notice: notice }
