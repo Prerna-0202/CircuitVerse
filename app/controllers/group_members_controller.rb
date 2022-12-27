@@ -39,7 +39,6 @@ class GroupMembersController < ApplicationController
     group_member_emails = group_member_params[:emails].select { |email| Devise.email_regexp.match?(email) }
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
     newly_added = group_member_emails - present_members
-    end
     newly_added.each do |email|
       email = email.strip
       user = User.find_by(email: email)
@@ -64,6 +63,7 @@ class GroupMembersController < ApplicationController
                                               newly_added)
       end
     end
+  end
     # redirect_to group_path(@group)
     # @group_member = GroupMember.new(group_member_params)
     #
