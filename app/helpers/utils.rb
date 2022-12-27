@@ -5,13 +5,13 @@ module Utils
   # @param mails string of emails entered
   # @return array of valid emails
   def self.parse_mails(mails)
-    mails.select do |email|
+    mails.split(/[\s,]/).select do |email|
       email.present? && Devise.email_regexp.match?(email)
     end.uniq.map(&:downcase)
   end
 
   def self.parse_mails_except_current_user(mails, current)
-    mails.select do |email|
+    mails.split(/[\s,]/).select do |email|
       email.present? && email != current.email && Devise.email_regexp.match?(email)
     end.uniq.map(&:downcase)
   end
@@ -22,7 +22,7 @@ module Utils
   # @param newly_added array of emails that have been newly added
   # @return notice string
   def self.mail_notice(input_mails, parsed_mails, newly_added)
-    total = input_mails.select(&:present?).count
+    total = input_mails.count(&:present?)
     valid = parsed_mails.count
     invalid = total - valid
     already_present = (parsed_mails - newly_added).count
