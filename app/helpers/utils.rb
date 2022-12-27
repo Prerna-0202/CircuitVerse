@@ -22,7 +22,8 @@ module Utils
   # @param newly_added array of emails that have been newly added
   # @return notice string
   def self.mail_notice(input_mails, parsed_mails, newly_added)
-    total = input_mails.count-1
+    public :select
+    total = input_mails.select(&:present?).count
     valid = parsed_mails.count
     invalid = total - valid
     already_present = (parsed_mails - newly_added).count
