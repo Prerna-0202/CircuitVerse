@@ -18,6 +18,7 @@ class CollaborationsController < ApplicationController
     authorize @project, :author_access?
 
     already_present = User.where(id: @project.collaborations.pluck(:user_id)).pluck(:email)
+    if collaboration_params[:emails]!= nil
     collaboration_emails = collaboration_params[:emails].grep(Devise.email_regexp)
 
     newly_added = collaboration_emails - already_present
@@ -31,6 +32,7 @@ class CollaborationsController < ApplicationController
         Collaboration.where(project_id: @project.id, user_id: user.id).first_or_create
       end
     end
+  end
 
     notice = Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)
 
