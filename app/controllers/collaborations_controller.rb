@@ -18,7 +18,8 @@ class CollaborationsController < ApplicationController
     authorize @project, :author_access?
 
     already_present = User.where(id: @project.collaborations.pluck(:user_id)).pluck(:email)
-    collaboration_emails = collaboration_params[:emails].grep(/^\A[^@\s]+@[^@\s]+\z/)
+    collaboration_emails = collaboration_params[:emails].grep_v(NilClass)
+    collaboration_emails = collaboration_params[:emails].grep(Devise.email_regexp)
 
     newly_added = collaboration_emails - already_present
 
