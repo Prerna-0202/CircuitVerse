@@ -13,9 +13,7 @@ describe Utils do
 
   describe "#parse_mails" do
     it "parses email string to array" do
-      expect(described_class.parse_mails(@emails.join(" "))).to eq(@valid_emails)
-      expect(described_class.parse_mails(@emails.join(","))).to eq(@valid_emails)
-      expect(described_class.parse_mails(@emails.join("\n"))).to eq(@valid_emails)
+      expect(described_class.parse_mails(@emails)).to eq(@valid_emails)
     end
   end
 
