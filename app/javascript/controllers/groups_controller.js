@@ -72,12 +72,11 @@ export default class extends Controller {
         });
         $('.select2-selection input').attr('maxlength', '30');
         $('.select2-selection input').attr('id', 'group_email_input');
-        $('.add-members-button').attr('disabled', true);
         $('.select2-container').on('keyup click', () => {
-            if ($('.select2-selection__rendered').children().length > 1) {
-                $('.add-members-button').attr('disabled', false);
-            } else {
+            if ($('.select2-selection__rendered').children().length < 1) {
                 $('.add-members-button').attr('disabled', true);
+            } else {
+                $('.add-members-button').attr('disabled', false);
             }
         });
         document.querySelector('.select2-selection input').addEventListener('paste', (e) => {
