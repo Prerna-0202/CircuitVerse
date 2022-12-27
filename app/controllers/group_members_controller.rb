@@ -36,8 +36,7 @@ class GroupMembersController < ApplicationController
     is_mentor = false
     is_mentor = group_member_params[:mentor] == "true" if group_member_params[:mentor]
     if group_member_params[:emails]!= nil
-     group_member_email_id = group_member_params[:emails].compact_blank
-    group_member_emails = group_member_email_id.grep(Devise.email_regexp)
+    group_member_emails = group_member_params[:emails].grep(Devise.email_regexp)
 
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
     newly_added = group_member_emails - present_members
@@ -56,6 +55,7 @@ class GroupMembersController < ApplicationController
         # group_member.save
       end
     end
+  end
 
     notice = Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added)
 
@@ -78,7 +78,6 @@ class GroupMembersController < ApplicationController
     #     format.json { render json: @group_member.errors, status: :unprocessable_entity }
     #   end
     # end
-  end
 end
   # PATCH/PUT /group_members/1
   # PATCH/PUT /group_members/1.json
