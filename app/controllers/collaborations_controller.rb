@@ -18,8 +18,9 @@ class CollaborationsController < ApplicationController
     authorize @project, :author_access?
 
     already_present = User.where(id: @project.collaborations.pluck(:user_id)).pluck(:email)
-    if collaboration_params[:emails]!= nil
-    collaboration_emails = collaboration_params[:emails].grep(Devise.email_regexp)
+    if (not collaboration_params[:emails].nil?)
+    collaboration_email = collaboration_params[:emails].compact_blank
+    collaboration_emails = collaboration_email.grep(Devise.email_regexp)
 
     newly_added = collaboration_emails - already_present
 
@@ -33,11 +34,10 @@ class CollaborationsController < ApplicationController
       end
     end
   end
-
-
+    
     notice = Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)
-
-    if collaboration_params[:emails]!=nil && collaboration_params[:emails].include?(current_user.email)
+    
+    if  collaboration_params[:emails].include?(current_user.email)
        notice = "You can't invite yourself. #{notice}" 
     end
 
