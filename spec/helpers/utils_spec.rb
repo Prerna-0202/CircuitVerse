@@ -8,7 +8,7 @@ describe Utils do
     @valid_emails = (1..@valid_email_count).reduce([]) { |e, _| e << Faker::Internet.email }
     @invalid_email_count = 3
     @invalid_emails = (1..@invalid_email_count).reduce([]) { |e, _| e << Faker::Internet.slug }
-    @emails = @valid_emails + @invalid_emails
+    @emails = [ @valid_emails , @invalid_emails]
   end
 
   describe "#parse_mails" do
