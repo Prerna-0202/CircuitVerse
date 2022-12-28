@@ -36,9 +36,9 @@ describe "Group management", type: :system do
     click_button "+ Add Members"
     execute_script "document.getElementById('addmemberModal').style.display='block'"
     execute_script "document.getElementById('addmemberModal').style.opacity=1"
-    execute_script "var new_email = document.createElement('option')"
-    execute_script "new_email.innerHTML = 'example@gmail.com'"
-    excute_script "document.getElementById('group_member_emails').appendChild(new_email)"
+    execute_script "var new_email = document.createElement('option')
+                    new_email.innerHTML = 'example@gmail.com'
+                    document.getElementById('group_member_emails').appendChild(new_email)"
     select "example@gmail.com", from: "group_member[emails][]"
     execute_script "document.getElementById('group_email_input').click()"
     click_button "Add members"
