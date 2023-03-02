@@ -75,10 +75,10 @@ function loadModule(data, scope) {
  * for some issues while loading nodes.
  * @category data
  */
-function removeBugNodes(scope = globalScope) {
+export function removeBugNodes(scope = globalScope) {
     let x = scope.allNodes.length;
     for (let i = 0; i < x; i++) {
-        if (scope.allNodes[i].type !== 2 && scope.allNodes[i].parent.objectType === 'CircuitElement') { scope.allNodes[i].delete(); }
+        if (scope.allNodes[i].type === 2 && scope.allNodes[i].parent.objectType === 'CircuitElement') { scope.allNodes[i].delete(); }
         if (scope.allNodes.length !== x) {
             i = 0;
             x = scope.allNodes.length;
