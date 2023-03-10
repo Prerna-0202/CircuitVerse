@@ -1,4 +1,4 @@
-import { scopeList } from '../circuit';
+import Scope, { scopeList } from '../circuit';
 import { resetup } from '../setup';
 import { update } from '../engine';
 import { stripTags, showMessage } from '../utils';
@@ -12,6 +12,7 @@ import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
 import {verilogModeGet} from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
 import C2S from '../../vendor/canvas2svg';
+import load from './load';
 
 var projectName = undefined;
 
@@ -407,3 +408,42 @@ export default async function save() {
     // Restore everything
     resetup();
 }
+
+// Generate circuit data for reporting
+let circuitData;
+try {
+    // Writing default project name to prevent unnecessary prompt in case the
+    // project is unnamed
+    circuitData = generateSaveData("Untitled");
+} catch (err) {
+    circuitData = `Circuit data generation failed: ${err}`;
+}
+
+// through this we can count the number of errors in console
+let errorCount = 0;
+window.onerror = function(message, source, lineno, colno, error) {
+  if(errorCount > 5) {
+    console.log("Simulator Crashed");
+    sessionStorage.setItem("reloading", "true");
+    document.location.reload();
+    console.log(`We have saved your project: ${getProjectName()} in your browser's localStorage`);
+  }
+  errorCount++;
+};
+
+
+function myFunction() {
+        console.log(generateSaveData(circuitData));
+        myCar = new Scope(globalScope);
+        myCar.loadCircuit(circuitData);
+}
+
+window.onload = function() {
+    var reloading = sessionStorage.getItem("reloading");
+    if (reloading) {
+        sessionStorage.removeItem("reloading");
+        myFunction();
+    }
+}
+
+
