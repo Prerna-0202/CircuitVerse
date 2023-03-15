@@ -490,7 +490,7 @@ GEM
       ffi (~> 1.0)
     recaptcha (5.12.3)
       json
-    redcarpet (3.5.1)
+    redcarpet (3.6.0)
     redis (4.6.0)
     regexp_parser (2.6.2)
     responders (3.0.1)
@@ -750,7 +750,7 @@ DEPENDENCIES
   rails-i18n (~> 7.0.3)
   rails_admin (>= 3.0.0.rc3, < 4)
   recaptcha
-  redcarpet (~> 3.3, >= 3.3.4)
+  redcarpet (~> 3.6)
   redis (~> 4.6)
   rexml
   rspec-rails (~> 5.1)

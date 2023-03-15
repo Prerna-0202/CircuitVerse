@@ -34,7 +34,7 @@ gem "terser"
 # Use CoffeeScript for .coffee assets and views
 gem "coffee-rails", "~> 5.0"
 gem "select2-rails"
-gem 'redcarpet', '~> 3.3', '>= 3.3.4'
+gem 'redcarpet', '~> 3.6'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem "turbolinks", "~> 5"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
