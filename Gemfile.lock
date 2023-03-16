@@ -491,7 +491,7 @@ GEM
     recaptcha (5.12.3)
       json
     redcarpet (3.5.1)
-    redis (4.6.0)
+    redis (4.8.1)
     regexp_parser (2.6.2)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -751,7 +751,7 @@ DEPENDENCIES
   rails_admin (>= 3.0.0.rc3, < 4)
   recaptcha
   redcarpet (~> 3.3, >= 3.3.4)
-  redis (~> 4.6)
+  redis (~> 4.8)
   rexml
   rspec-rails (~> 5.1)
   rspec_junit_formatter
