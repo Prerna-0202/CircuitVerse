@@ -419,14 +419,8 @@ export function play(scope = globalScope, resetNodes = false) {
         forceResetNodesSet(true);
         errorDetectedSet(true);
     }
-    // valueue = stepCount;
 }
 
-/**
- *@param {number=} Simulation Log function
- *@param {number=} This function is to get simulation Log
- *@category engine
- */
  export function simulationLog() {
     return simulation_log;
 }
