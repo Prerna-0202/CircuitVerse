@@ -360,8 +360,12 @@ export default class Node {
 
             if (this.type == NODE_OUTPUT && !this.subcircuitOverride) {
                 if (this.parent.isResolvable() && !this.parent.queueProperties.inQueue) {
-                    if (this.parent.objectType == 'TriState') {
+                    if (this.parent.objectType == 'TriState' || this.parent.objectType == 'ControlledInverter') {
                         if (this.parent.state.value) { simulationArea.simulationQueue.add(this.parent); }
+                        else if (this.parent.state.value === 0) {
+                            this.parent.output1.value = undefined;
+                            simulationArea.simulationQueue.add(this.parent);
+                        }
                     } else {
                         simulationArea.simulationQueue.add(this.parent);
                     }
@@ -390,6 +394,9 @@ export default class Node {
                     showError(`Contention Error: ${this.value} and ${node.value} at ${circuitElementName} in ${circuitName}`);
                 } else if (node.bitWidth == this.bitWidth || node.type == 2) {
                     if (node.parent.objectType == 'TriState' && node.value != undefined && node.type == 1) {
+                        if (node.parent.state.value) { simulationArea.contentionPending.push(node.parent); }
+                    }
+                    if (node.parent.objectType == 'ControlledInverter' && node.value != undefined && node.type == 1) {
                         if (node.parent.state.value) { simulationArea.contentionPending.push(node.parent); }
                     }
 
