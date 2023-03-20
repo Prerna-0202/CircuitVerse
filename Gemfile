@@ -168,7 +168,7 @@ gem "newrelic_rpm", "~> 8.14"
 
 gem "oj", "~> 3.13"
 
-gem "hairtrigger", "~> 0.2.25"
+gem "hairtrigger", "~> 1.0.0"
 
 # Used for rate limiting
 gem "rack-attack"
