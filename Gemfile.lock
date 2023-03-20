@@ -237,8 +237,8 @@ GEM
       ffi (>= 1.0.0)
       rake
     flipper (0.24.1)
-    flipper-redis (0.24.0)
-      flipper (~> 0.24.0)
+    flipper-redis (0.24.1)
+      flipper (~> 0.24.1)
       redis (>= 3.0, < 5)
     flipper-ui (0.24.1)
       erubi (>= 1.0.0, < 2.0.0)
