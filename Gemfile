@@ -158,7 +158,7 @@ end
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 # mails
-gem "premailer-rails", "~> 1.11", ">= 1.11.1"
+gem "premailer-rails", "~> 1.12"
 
 gem "bugsnag", "~> 6.24"
 
