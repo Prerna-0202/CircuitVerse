@@ -176,6 +176,6 @@ gem "rack-attack"
 gem "jsbundling-rails", "~> 1.0"
 
 gem "sassc-rails"
-gem "stimulus-rails", "~> 1.0"
+gem "stimulus-rails", "~> 1.2"
 
 gem "noticed", "~> 1.6"
