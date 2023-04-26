@@ -18,7 +18,8 @@ ENV BUNDLE_DEPLOYMENT=true
 # ENV BUNDLE_JOBS=4 
 ENV BUNDLE_WITHOUT=development:test 
 
-RUN bundle install \
+RUN bundle config set without 'development:test' && \
+    bundle install \
    && rm -rf vendor/bundle/ruby/3.1.0/cache/* 
 
 COPY . .
@@ -26,15 +27,15 @@ COPY . .
 RUN RAILS_ENV=production \
     SECRET_KEY_BASE=1 \
     DATABASE_URL=postgres://nulldb \
-		DISABLE_FLIPPER=true \
+  DISABLE_FLIPPER=true \
     bundle exec rails assets:precompile && \
-	  yarn cache clean
+   yarn cache clean
 
 RUN rm -rf node_modules  spec
 
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
-FROM --platform=$BUILDPLATFORM ruby:3.2.1-slim as app
+FROM --platform=$BUILDPLATFORM alpine:3.14 as app
 
 COPY --from=builder /usr/src/app /usr/src/app
 
@@ -50,13 +51,17 @@ ENV RAILS_SERVE_STATIC_FILES="true"
 ARG REDIS_URL="redis://localhost:6379"
 
 
-RUN apt-get update -qq && apt upgrade -y && apt-get install -y --no-install-recommends --auto-remove curl  \
-   && curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
-   && apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libpq5 libcurl4 libjemalloc2  \
-   && apt-get clean \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-   && truncate -s 0 /var/log/*log
+RUN apk add --no-cache \
+    bash \
+    curl \
+    imagemagick \
+    libpq \
+    nodejs \
+    tzdata \
+    && cp /usr/share/zoneinfo/Etc/UTC /etc/localtime \
+    && echo "UTC" > /etc/timezone \
+    && apk del tzdata \
+    && truncate -s 0 /var/log/*log
 
 WORKDIR /usr/src/app
 
