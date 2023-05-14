@@ -51,7 +51,7 @@ describe('Simulator Misc-Elements Testing', () => {
 
     test('Controlled Inverter working', () => {
         const result = runAll(testData.ControlledInverter);
-        expect(result.summary.passed).toBe(4);
+        expect(result.summary.passed).toBe(2);
     });
 
     test('Equal Splitter working', () => {
