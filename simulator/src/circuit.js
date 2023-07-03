@@ -35,6 +35,9 @@ import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
 import { verilogModeGet, verilogModeSet } from './Verilog2CV';
 import { updateTestbenchUI } from './testbench';
+import load, { removeBugNodes } from './data/load';
+import redo from './data/redo';
+import undo from './data/undo';
 
 export const circuitProperty = {
     toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize, changeLightMode,
@@ -374,4 +377,26 @@ export default class Scope {
         this.ox = (-minX) * this.scale + (width - (maxX - minX) * this.scale) / 2;
         this.oy = (-minY) * this.scale + (height - ytoolbarOffset - (maxY - minY) * this.scale) / 2;
     }
+
+    loadCircuit(data) {
+        if(data) {
+            load(data);
+        }
+        else{
+            alert("Invalid data");
+        }
+    }
+
+    removeBug() {
+        removeBugNodes(globalScope);
+    }
+
+    next() {
+      redo(globalScope);
+    }
+
+    previous() {
+      undo(globalScope);
+    }
+
 }
