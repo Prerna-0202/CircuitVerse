@@ -373,6 +373,8 @@ export function updateSelectionsAndPane(scope = globalScope) {
  * @param {boolean} resetNodes - boolean to reset all nodes
  * @category engine
  */
+let simulation_log = [];
+let valueue;
 export function play(scope = globalScope, resetNodes = false) {
     if (errorDetected) return; // Don't simulate until error is fixed
     if (loading === true) return; // Don't simulate until loaded
@@ -403,17 +405,28 @@ export function play(scope = globalScope, resetNodes = false) {
         elem.resolve();
         stepCount++;
         if (stepCount > 1000000) { // Cyclic or infinite Circuit Detection
+            simulation_log.push(elem);
             showError('Simulation Stack limit exceeded: maybe due to cyclic paths or contention');
             errorDetectedSet(true);
             forceResetNodesSet(true);
         }
     }
+    valueue = stepCount;
+
     // Check for TriState Contentions
     if (simulationArea.contentionPending.length) {
         showError('Contention at TriState');
         forceResetNodesSet(true);
         errorDetectedSet(true);
     }
+}
+
+ export function simulationLog() {
+    return simulation_log;
+}
+
+export function simulation() {
+    return valueue;
 }
 
 /**

@@ -27,7 +27,8 @@ import { showProperties } from './ux';
 import {
     scheduleUpdate, updateSimulationSet,
     updateCanvasSet, updateSubcircuitSet,
-    forceResetNodesSet, changeLightMode,
+    forceResetNodesSet, changeLightMode, simulationLog, simulation,
+    //  simulationLog, play,
 } from './engine';
 import { toggleLayoutMode, layoutModeGet } from './layoutMode';
 import { setProjectName, getProjectName } from './data/save';
@@ -374,4 +375,21 @@ export default class Scope {
         this.ox = (-minX) * this.scale + (width - (maxX - minX) * this.scale) / 2;
         this.oy = (-minY) * this.scale + (height - ytoolbarOffset - (maxY - minY) * this.scale) / 2;
     }
+
+    getCurrentlySelectedComponent() {
+         return simulationArea.lastSelected;
+    }
+
+    getAllSelectedComponent() {
+        return simulationArea.multipleObjectSelections;
+    }
+
+    getSimulationLog() {
+        return simulationLog();
+    }
+
+    getStepCount() {
+     return simulation();
+    }
+
 }
