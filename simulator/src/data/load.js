@@ -1,7 +1,7 @@
 import { resetScopeList, newCircuit, switchCircuit } from '../circuit';
 import { setProjectName } from './save';
 import {
- scheduleUpdate, update, updateSimulationSet, updateCanvasSet, gridUpdateSet 
+    scheduleUpdate, update, updateSimulationSet, updateCanvasSet, gridUpdateSet
 } from '../engine';
 import { updateRestrictedElementsInScope } from '../restrictedElementDiv';
 import simulationArea from '../simulationArea';
@@ -43,6 +43,11 @@ function loadModule(data, scope) {
     obj.labelDirection = data.labelDirection || oppositeDirection[fixDirection[obj.direction]];
 
     // Sets delay
+    if (data.propagationDelay == 0) {
+        obj.propagationDelay = 0
+    } else {
+        obj.propagationDelay = data.propagationDelay || obj.propagationDelay;
+    }
     obj.propagationDelay = data.propagationDelay || obj.propagationDelay;
     obj.fixDirection();
 
@@ -66,7 +71,7 @@ function loadModule(data, scope) {
             }
         }
     }
-    if(data.subcircuitMetadata)
+    if (data.subcircuitMetadata)
         obj.subcircuitMetadata = data["subcircuitMetadata"];
 }
 
@@ -191,7 +196,7 @@ export default function load(data) {
 
         var isVerilogCircuit = false;
         var isMainCircuit = false;
-        if(data.scopes[i].verilogMetadata) {
+        if (data.scopes[i].verilogMetadata) {
             isVerilogCircuit = data.scopes[i].verilogMetadata.isVerilogCircuit;
             isMainCircuit = data.scopes[i].verilogMetadata.isMainCircuit;
         }
@@ -228,11 +233,11 @@ export default function load(data) {
         var unorderedTabs = $('.circuits').detach();
         var plusButton = $('#tabsBar').children().detach();
         for (const tab of data.orderedTabs) { $('#tabsBar').append(unorderedTabs.filter(`#${tab}`)); }
-        $('#tabsBar').append(plusButton); 
+        $('#tabsBar').append(plusButton);
     }
 
     // Switch to last focussedCircuit
-    if (data.focussedCircuit) 
+    if (data.focussedCircuit)
         switchCircuit(data.focussedCircuit);
 
     // Update the testbench UI
@@ -242,7 +247,7 @@ export default function load(data) {
     updateCanvasSet(true);
     gridUpdateSet(true);
     // Reset Timing
-    if(!embed)
+    if (!embed)
         plotArea.reset();
     scheduleUpdate(1);
 }
